@@ -21,7 +21,7 @@ public class Input {
         return input.equals("y") || input.equals("yes");
     }
 
-    boolean yesNo(String prompt){
+    public boolean yesNo(String prompt){
         if (!prompt.isEmpty()) {
             System.out.print(prompt);
         }
@@ -61,7 +61,7 @@ public class Input {
             return getDouble(min, max, prompt);
         }
     }
-    double getDouble(String prompt){
+    public double getDouble(String prompt){
         if (!prompt.isEmpty()) {
             System.out.print(prompt);
         }
