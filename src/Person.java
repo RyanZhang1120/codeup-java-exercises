@@ -5,7 +5,7 @@ public class Person {
     }
     public String getName(){
 //TODO: return the person's name
-        return this.name;
+        return name;
     }
 
     public void setName(String name){
