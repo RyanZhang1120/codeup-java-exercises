@@ -3,11 +3,12 @@ public class ArraysExercises {
     public static void main(String[] args) {
 //        int[] numbers = {1, 2, 3, 4, 5};
 //        System.out.println(Arrays.toString(numbers));
-        Person[] persons = new Person[3];
 
-        persons[0] = new Person("Ryan");
-        persons[1] = new Person("Niki");
-        persons[2] = new Person("John");
+        Person person1 = new Person("Ryan");
+        Person person2 = new Person("Niki");
+        Person person3 = new Person("John");
+
+        Person[] persons = {person1, person2, person3};
         for(Person person : persons){
             System.out.println(person.getName());
         }
