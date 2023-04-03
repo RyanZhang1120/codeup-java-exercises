@@ -10,11 +10,11 @@ public class Input {
         return scanner.nextLine();
     }
 
-    String getString(String prompt){
+    public String getString(String prompt){
         if (!prompt.isEmpty()) {
             System.out.print(prompt);
         }
-        return scanner.nextLine();
+        return scanner.next();
     }
     boolean yesNo(){
         String input = scanner.next().toLowerCase();
@@ -36,7 +36,7 @@ public class Input {
             return getInt(min, max);
         }
     }
-    int getInt(int min, int max, String prompt){
+    public int getInt(int min, int max, String prompt){
         if (!prompt.isEmpty()) {
             System.out.print(prompt);
         }
@@ -46,6 +46,12 @@ public class Input {
         } else {
             return getInt(min, max, prompt);
         }
+    }
+    public int getInt(String prompt){
+        if (!prompt.isEmpty()) {
+            System.out.print(prompt);
+        }
+        return scanner.nextInt();
     }
     int getInt(){
         return scanner.nextInt();
