@@ -54,6 +54,7 @@ public class GradesApplication {
                 running = false;
             }
         }
+        System.out.println("Goodbye, and have a wonderful day!");
     }
     public static void findStudent(){
         Scanner scanner = new Scanner(System.in);
