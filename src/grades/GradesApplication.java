@@ -24,10 +24,10 @@ public class GradesApplication {
         student4.addGrade(60);
         student4.addGrade(50);
 
-        students.put("github_alice", student1);
-        students.put("github_bob", student2);
-        students.put("github_charlie", student3);
-        students.put("github_diana", student4);
+        students.put("github_ryan", student1);
+        students.put("github_niki", student2);
+        students.put("github_john", student3);
+        students.put("github_lucy", student4);
 
 //        for(String githubUsername : students.keySet()){
 //            Student student = students.get(githubUsername);
@@ -38,13 +38,19 @@ public class GradesApplication {
         for(String githubUsername : students.keySet()){
             System.out.print("|" + githubUsername + "| ");
         }
-        System.out.println("\nWhat student would you like to see more information on?");
+        System.out.println("");
         boolean running = true;
         while(running){
+            System.out.println("What student would you like to see more information on?");
             findStudent();
-            System.out.println("Would you like to see another student?");
+            System.out.println("Would you like to see another student? y/n");
             String goOn = scanner.nextLine();
-            if(goOn.equalsIgnoreCase("no")){
+            if(goOn.equalsIgnoreCase("no") || goOn.equalsIgnoreCase("n")){
+                running = false;
+            } else if (goOn.equalsIgnoreCase("yes") || goOn.equalsIgnoreCase("y")) {
+                running = true;
+            } else {
+                System.out.println("Invalid input");
                 running = false;
             }
         }
@@ -55,7 +61,8 @@ public class GradesApplication {
 
         if(students.containsKey(userInput)){
             Student student = students.get(userInput);
-            System.out.println(userInput + ": " + student.getName() +" - " + "Average grade: " + student.getGradeAverage());
+            System.out.println("Name: " + student.getName() + " - GitHub Username: " + userInput );
+            System.out.println("Current Average: " + student.getGradeAverage());
         } else {
             System.out.println("Sorry, no student found with the GitHub username of " + userInput);
         }
