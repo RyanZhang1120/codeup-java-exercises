@@ -1,0 +1,9 @@
+username:davidBanker
+100 main ave, 12345
+enjoys food
+username:kencool
+8646 sunny goats 78250
+also eats food
+username:davidRen
+555 disco drive
+can eat food if needed
