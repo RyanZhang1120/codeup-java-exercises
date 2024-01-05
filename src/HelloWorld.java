@@ -6,6 +6,8 @@ public class HelloWorld {
         System.out.println(myString);
         float myNumber = 3.14f;
         System.out.println(myNumber);
+        int intNumber = (int) myNumber;
+        System.out.println(intNumber);
         int x = 5;
         System.out.println(x++);
         System.out.println(x);

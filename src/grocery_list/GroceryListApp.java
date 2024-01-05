@@ -1,132 +1,101 @@
 package grocery_list;
 import java.util.*;
-import util.Input;
 
-//public class GroceryListApp {
-//    private HashMap<GroceryCategory, List<GroceryItem>> itemsByCategory;
-//    private List<GroceryItem> items;
-//    private Input input = new Input();
-//    public GroceryList() {
-//        itemsByCategory = new HashMap<>();
-//        items = new ArrayList<>();
-//
-//        for (GroceryCategory category : GroceryCategory.values()) {
-//            itemsByCategory.put(category, new ArrayList<>());
-//        }
-//    }
-//
-//    public void addItem() {
-//        System.out.println("Add an item to the grocery list:");
-//
-//        GroceryCategory category = input.getCategory("Select a category:\n" + GroceryCategory.printCategories());
-//
-//        String name = input.getString("Enter the name of the item:");
-//
-//        int quantity = input.getInt(1, Integer.MAX_VALUE, "Enter the quantity:");
-//
-//        GroceryItem item = new GroceryItem(name, category, quantity);
-//
-//        itemsByCategory.get(category).add(item);
-//        items.add(item);
-//
-//        System.out.println("Item added!");
-//    }
-//
-//    public void editItem() {
-//        System.out.println("Select an item to edit:");
-//
-//        int index = 1;
-//        Map<Integer, GroceryItem> indexedItems = new HashMap<>();
-//
-//        for (GroceryItem item : items) {
-//            System.out.printf("%d. %s\n", index, item.toString());
-//            indexedItems.put(index, item);
-//            index++;
-//        }
-//
-//        int choice = input.getInt(1, items.size(), "Enter your choice: ");
-//        GroceryItem item = indexedItems.get(choice);
-//
-//        System.out.printf("You selected: %s\n", item.toString());
-//
-//        item.setName(input.getString("Enter a new name or press enter to keep the existing name: "));
-//
-//        item.setQuantity(input.getInt(1, Integer.MAX_VALUE,
-//                "Enter a new quantity or press enter to keep the existing quantity: "));
-//
-//        item.setCategory(input.getCategory("Select a new category or press enter to keep the existing category:\n"
-//                + GroceryCategory.printCategories()));
-//    }
-//
-//    public void printList() {
-//        System.out.println("\nHere is your grocery list:");
-//
-//        for (GroceryCategory category : GroceryCategory.values()) {
-//            List<GroceryItem> categoryItems = itemsByCategory.get(category);
-//
-//            if (!categoryItems.isEmpty()) {
-//                System.out.printf("\n%s:\n", category);
-//
-//                for (GroceryItem item : categoryItems) {
-//                    System.out.printf("- %s (%d)\n", item.getName(), item.getQuantity());
-//                }
-//            }
-//        }
-//    }
-//
-//    public void printByCategory() {
-//        GroceryCategory category = input.getCategory("Select a category:\n" + GroceryCategory.printCategories());
-//
-//        List<GroceryItem> categoryItems = itemsByCategory.get(category);
-//
-//        if (!categoryItems.isEmpty()) {
-//            System.out.printf("\n%s:\n", category);
-//
-//            for (GroceryItem item : categoryItems) {
-//                System.out.printf("- %s (%d)\n", item.getName(), item.getQuantity());
-//            }
-//        } else {
-//            System.out.printf("\nThere are no items in the %s category.\n", category);
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        GroceryList groceryList = new GroceryList();
-//
-//        while (true) {
-//            boolean createList = groceryList.input.yesNo("Would you like to create a grocery list? ");
-//
-//            if (createList) {
-//                boolean addItem = true;
-//
-//                while (addItem) {
-//                    groceryList.addItem();
-//
-//                    addItem = groceryList.input.yesNo("Would you like to add another item? ");
-//                }
-//
-//                boolean editItem = true;
-//
-//                while (editItem) {
-//                    groceryList.editItem();
-//
-//                    editItem = groceryList.input.yesNo("Would you like to edit another item? ");
-//                }
-//
-//                boolean printByCategory = true;
-//
-//                while (printByCategory) {
-//                    groceryList.printByCategory();
-//
-//                    printByCategory = groceryList.input.yesNo("Would you like to print items by another category? ");
-//                }
-//
-//                groceryList.printList();
-//            } else {
-//                System.out.println("Goodbye!");
-//                break;
-//            }
-//        }
-//    }
-//}
+public class GroceryListApp {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, List<Item>> groceryList = new HashMap<>();
+        List<String> categories = Arrays.asList("Produce", "Dairy", "Meat", "Bakery", "Frozen", "Canned", "Dry", "Snacks");
+
+        System.out.println("Would you like to create a grocery list? (yes/no)");
+        String createList = scanner.nextLine().trim().toLowerCase();
+
+        while (createList.equals("yes") || createList.equals("y")) {
+            System.out.println("Do you want to enter a new item? (yes/no)");
+            String newItem = scanner.nextLine().trim().toLowerCase();
+
+            while (newItem.equals("yes") || newItem.equals("y")) {
+                System.out.println("Select the category for the item:");
+                for (int i = 0; i < categories.size(); i++) {
+                    System.out.println((i + 1) + ". " + categories.get(i));
+                }
+                int categoryIndex = Integer.parseInt(scanner.nextLine().trim()) - 1;
+                String category = categories.get(categoryIndex);
+
+                System.out.println("Enter the name of the item:");
+                String itemName = scanner.nextLine().trim();
+
+                System.out.println("Enter the quantity of the item:");
+                int itemQuantity = Integer.parseInt(scanner.nextLine().trim());
+
+                groceryList.putIfAbsent(category, new ArrayList<>());
+                groceryList.get(category).add(new Item(itemName, itemQuantity));
+
+                System.out.println("Do you want to add another item? (yes/no)");
+                newItem = scanner.nextLine().trim().toLowerCase();
+            }
+
+            System.out.println("Do you want to filter the list by category? (yes/no)");
+            String filter = scanner.nextLine().trim().toLowerCase();
+
+            if (filter.equals("yes")) {
+                System.out.println("Select a category to filter by:");
+                for (int i = 0; i < categories.size(); i++) {
+                    System.out.println((i + 1) + ". " + categories.get(i));
+                }
+                int filterIndex = Integer.parseInt(scanner.nextLine().trim()) - 1;
+                String filterCategory = categories.get(filterIndex);
+
+                System.out.println("Grocery list filtered by " + filterCategory + ":");
+                displayItems(groceryList, filterCategory);
+            } else {
+                System.out.println("Complete grocery list:");
+                for (String category : categories) {
+                    displayItems(groceryList, category);
+                }
+            }
+
+            System.out.println("Do you want to create a new grocery list? (yes/no)");
+            createList = scanner.nextLine().trim().toLowerCase();
+        }
+
+        scanner.close();
+    }
+
+    private static void displayItems(Map<String, List<Item>> groceryList, String category) {
+        if (groceryList.containsKey(category)) {
+            List<Item> items = groceryList.get(category);
+            Collections.sort(items);
+            System.out.println(category + ":");
+            for (Item item : items) {
+                System.out.println("  " + item.getName() + " - " + item.getQuantity());
+            }
+        }
+    }
+
+    static class Item implements Comparable<Item> {
+        private String name;
+        private int quantity;
+
+        public Item(String name, int quantity) {
+            this.name = name;
+            this.quantity = quantity;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        @Override
+        public int compareTo(Item o) {
+            return this.name.compareToIgnoreCase(o.name);
+        }
+    }
+}
+
 
